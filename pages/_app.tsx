@@ -7,6 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/utils/theme";
 import createEmotionCache from "@/utils/createEmotionCache";
 import { SessionProvider } from "next-auth/react";
+import CustomAppbar from "@/components/appbar";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         <CacheProvider value={clientSideEmotionCache}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <CustomAppbar />
             <Component {...pageProps} />
           </ThemeProvider>
         </CacheProvider>
