@@ -23,6 +23,10 @@ export default function CustomAppbar() {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
+  const gotoHomepage = () => {
+    router.push("/");
+  };
+
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -47,7 +51,12 @@ export default function CustomAppbar() {
             variant="h6"
             noWrap
             component={"div"}
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+              cursor: "pointer",
+            }}
+            onClick={gotoHomepage}
           >
             Vote-For
           </Typography>
@@ -86,7 +95,12 @@ export default function CustomAppbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              cursor: "pointer",
+            }}
+            onClick={gotoHomepage}
           >
             Vote-For
           </Typography>
