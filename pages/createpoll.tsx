@@ -48,7 +48,7 @@ export default function CreatePoll() {
               onChange={(e) => setSubject(e.target.value)}
             />
           </Grid>
-          <Grid item xs={5} sm={6} textAlign={"center"}>
+          <Grid item xs={11} sm={6} textAlign={"center"}>
             <Typography variant="h6" component={"span"}>
               Please provide number of nominations:
             </Typography>
@@ -81,12 +81,13 @@ export default function CreatePoll() {
               </Grid>
             </Paper>
           </Grid>
-          <Grid item xs={5} sm={6} textAlign="center">
+          <Grid item xs={10} sm={6} textAlign="center">
             <Button
               // fullWidth
               variant="contained"
               onClick={() => {
                 setSubjectState(!subjectState);
+                console.log(subject, nominationCounter);
               }}
             >
               Next
