@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Box,
@@ -11,11 +11,15 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 export default function CreatePoll() {
   const [subject, setSubject] = useState("");
-  const [subjectState, setSubjectState] = useState<boolean>(false);
   const [nominationCounter, setNominationCounter] = useState<number>(2);
+  const [nominations, setNominations] = useState<{ nomination: string }[]>([
+    { nomination: "" },
+    { nomination: "" },
+  ]);
   const [isDisable, setDisable] = useState<boolean>(true);
 
   useEffect(() => {
@@ -25,6 +29,15 @@ export default function CreatePoll() {
       setDisable(false);
     }
   }, [nominationCounter]);
+
+  const handleOnChange = (
+    indx: number,
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    let data = [...nominations];
+    data[indx] = { nomination: event.target.value };
+    setNominations(data);
+  };
 
   return (
     <>
@@ -39,7 +52,6 @@ export default function CreatePoll() {
           <Grid item xs={10} sm={6}>
             <TextField
               fullWidth
-              disabled={subjectState}
               rows={4}
               id="outlined-textarea"
               label="Subject for Vote"
@@ -62,7 +74,12 @@ export default function CreatePoll() {
                   <IconButton
                     aria-label="decrease"
                     color="primary"
-                    onClick={() => setNominationCounter(nominationCounter - 1)}
+                    onClick={() => {
+                      let data = [...nominations];
+                      data.splice(data.length - 1, 1);
+                      setNominations([...data]);
+                      setNominationCounter(nominationCounter - 1);
+                    }}
                     disabled={isDisable}
                   >
                     <RemoveIcon />
@@ -73,7 +90,13 @@ export default function CreatePoll() {
                   <IconButton
                     aria-label="increase"
                     color="primary"
-                    onClick={() => setNominationCounter(nominationCounter + 1)}
+                    onClick={() => {
+                      let newNomination: { nomination: string } = {
+                        nomination: "",
+                      };
+                      setNominations([...nominations, newNomination]);
+                      setNominationCounter(nominationCounter + 1);
+                    }}
                   >
                     <AddIcon />
                   </IconButton>
@@ -82,15 +105,42 @@ export default function CreatePoll() {
             </Paper>
           </Grid>
           <Grid item xs={10} sm={6} textAlign="center">
+            <Grid container direction={"column"} gap={1}>
+              {nominations.map((nom: { nomination: string }, indx: number) => (
+                <Grid item key={indx}>
+                  <TextField
+                    size="small"
+                    label={`Nomination ${indx + 1}`}
+                    name="nomination"
+                    value={nom.nomination}
+                    onChange={(event) => handleOnChange(indx, event)}
+                  />
+                  <IconButton
+                    aria-label="remove"
+                    color="error"
+                    onClick={() => {
+                      let data = [...nominations];
+                      data.splice(indx, 1);
+                      setNominations([...data]);
+                      setNominationCounter(nominationCounter - 1);
+                    }}
+                    disabled={isDisable}
+                  >
+                    <CancelIcon />
+                  </IconButton>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+          <Grid item xs={10} sm={6} textAlign="center">
             <Button
               // fullWidth
               variant="contained"
               onClick={() => {
-                setSubjectState(!subjectState);
-                console.log(subject, nominationCounter);
+                console.log(nominations);
               }}
             >
-              Next
+              Submit
             </Button>
           </Grid>
         </Grid>
