@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-<<<<<<< Updated upstream
 import {
   Box,
   Button,
@@ -57,13 +56,6 @@ export default function CreatePoll() {
         console.log("failed to upload");
       });
   };
-=======
-import { Box, Button, Grid, Paper, TextField } from "@mui/material";
-
-export default function CreatePoll() {
-  const [subject, setSubject] = useState("");
-  const [numOfNominatons, setNumberOfNominations] = useState<number>();
->>>>>>> Stashed changes
 
   return (
     <>
@@ -74,13 +66,8 @@ export default function CreatePoll() {
       </Head>
 
       <Box sx={{ flexGrow: 1, my: 2 }}>
-<<<<<<< Updated upstream
         <Grid container gap={2} alignItems="center" justifyContent={"center"}>
           <Grid item xs={10} sm={6}>
-=======
-        <Grid container gap={2} justifyContent={"center"}>
-          <Grid item xs={11} sm={6}>
->>>>>>> Stashed changes
             <TextField
               fullWidth
               rows={4}
@@ -91,7 +78,6 @@ export default function CreatePoll() {
               onChange={(e) => setSubject(e.target.value)}
             />
           </Grid>
-<<<<<<< Updated upstream
           <Grid item xs={11} sm={6} textAlign={"center"}>
             <Typography variant="h6" component={"span"}>
               Please provide number of nominations:
@@ -165,12 +151,6 @@ export default function CreatePoll() {
             </Grid>
           </Grid>
           <Grid item xs={10} sm={6} textAlign="center">
-=======
-          <Grid item xs={3} sm={4}>
-            <CounterComp />
-          </Grid>
-          {/* <Grid item xs={3} sm={1}>
->>>>>>> Stashed changes
             <Button
               // fullWidth
               variant="contained"
@@ -178,7 +158,7 @@ export default function CreatePoll() {
             >
               Submit
             </Button>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Box>
     </>
