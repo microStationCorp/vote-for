@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import {
   Box,
@@ -37,6 +37,24 @@ export default function CreatePoll() {
     let data = [...nominations];
     data[indx] = { nomination: event.target.value };
     setNominations(data);
+  };
+
+  const handleOnSubmit = () => {
+    fetch("/api/newpoll", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ subject, nominationCounter, nominations }),
+    })
+      .then((res) => {
+        res.json().then((data) => {
+          console.log(data);
+        });
+      })
+      .catch((err) => {
+        console.log("failed to upload");
+      });
   };
 
   return (
@@ -136,9 +154,7 @@ export default function CreatePoll() {
             <Button
               // fullWidth
               variant="contained"
-              onClick={() => {
-                console.log(nominations);
-              }}
+              onClick={() => handleOnSubmit()}
             >
               Submit
             </Button>

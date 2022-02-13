@@ -21,6 +21,6 @@
       "@/model/*": ["model/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/global.d.ts"],
   "exclude": ["node_modules"]
 }
