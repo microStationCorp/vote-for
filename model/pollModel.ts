@@ -15,6 +15,7 @@ const NewPollSchema = new mongoose.Schema<NewPollInterface>({
       nomination: {
         type: String,
         required: true,
+        unique:true
       },
     },
   ],

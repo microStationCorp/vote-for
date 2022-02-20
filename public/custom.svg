@@ -1,0 +1,47 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- <g>
+        <path stroke="white" stroke-width=".2" d="M10 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M20 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M30 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M40 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M50 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M60 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M70 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M80 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M90 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M100 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M110 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M120 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M130 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M140 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M150 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M160 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M170 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M180 0 V200" />
+        <path stroke="white" stroke-width=".2" d="M190 0 V200" />
+        
+        
+        <path stroke="white" stroke-width=".2" d="M0 10 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 20 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 30 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 40 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 50 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 60 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 70 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 80 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 90 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 100 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 110 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 120 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 130 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 140 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 150 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 160 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 170 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 180 h200" />
+        <path stroke="white" stroke-width=".2" d="M0 190 h200" />
+    </g> -->
+
+    <path fill="cyan" d="M 80 180 h 40 L 60 20 h -40 z" />
+    <path fill="#07818a" d="M 80 180 h 40 L 180 20 h -40 z" />
+</svg>

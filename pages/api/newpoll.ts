@@ -9,17 +9,21 @@ export default async function handler(
 ) {
   dbConnect();
   const method = req.method;
-  const { subject, nominationCounter, nominations } = req.body;
+  const { subject, totalNominations, nominations }: NewPollInterface = req.body;
   const parsing_data: NewPollInterface = {
     subject,
-    totalNominations: nominationCounter,
+    totalNominations,
     nominations,
   };
   switch (method) {
     case "POST":
-      const newpoll = new NewPoll(parsing_data);
-      const doc = await newpoll.save();
-      res.status(200).json({ msg: "ok", doc });
+      try {
+        const newpoll = new NewPoll(parsing_data);
+        const doc = await newpoll.save();
+        res.status(200).json({ msg: "ok", doc });
+      } catch {
+        res.status(500).json({ msg: "error occured" });
+      }
       break;
     default:
       res.status(405).json({ msg: "wrong method" });

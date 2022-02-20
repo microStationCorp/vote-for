@@ -12,6 +12,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { CreatePollFormValidation } from "@/utils/validation";
 
 export default function CreatePoll() {
   const [subject, setSubject] = useState("");
@@ -22,6 +23,7 @@ export default function CreatePoll() {
   ]);
   const [isDisable, setDisable] = useState<boolean>(true);
 
+  // count the total nominations
   useEffect(() => {
     if (nominationCounter < 3) {
       setDisable(true);
@@ -30,6 +32,7 @@ export default function CreatePoll() {
     }
   }, [nominationCounter]);
 
+  // for saving nomination name
   const handleOnChange = (
     indx: number,
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -39,22 +42,37 @@ export default function CreatePoll() {
     setNominations(data);
   };
 
+  // submit form
   const handleOnSubmit = () => {
-    fetch("/api/newpoll", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ subject, nominationCounter, nominations }),
-    })
-      .then((res) => {
-        res.json().then((data) => {
-          console.log(data);
-        });
+    // here will go the form validation process
+    const { error, value } = CreatePollFormValidation({
+      subject,
+      nominations,
+      totalNominations: nominationCounter,
+    });
+
+    console.log({ error, value });
+
+    //here goes the api call
+    if (!error) {
+      fetch("/api/newpoll", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(value),
       })
-      .catch((err) => {
-        console.log("failed to upload");
-      });
+        .then((res) => {
+          res.json().then((data) => {
+            console.log(data);
+          });
+        })
+        .catch((err) => {
+          console.log("failed to upload");
+        });
+    } else {
+      console.error("error:", error.message);
+    }
   };
 
   return (
@@ -62,7 +80,7 @@ export default function CreatePoll() {
       <Head>
         <title>Create Poll</title>
         <meta name="description" content="create poll for vote for page" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/custom.svg" />
       </Head>
 
       <Box sx={{ flexGrow: 1, my: 2 }}>
