@@ -20,9 +20,9 @@ export default async function handler(
       try {
         const newpoll = new NewPoll(parsing_data);
         const doc = await newpoll.save();
-        res.status(200).json({ msg: "ok", doc });
-      } catch {
-        res.status(500).json({ msg: "error occured" });
+        res.status(200).json({ success: true, doc });
+      } catch (error) {
+        res.status(500).json({ success: false, error });
       }
       break;
     default:

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import Head from "next/head";
 import {
+  Alert,
+  AlertColor,
   Box,
   Button,
   Grid,
   IconButton,
   Paper,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
@@ -22,6 +25,22 @@ export default function CreatePoll() {
     { nomination: "" },
   ]);
   const [isDisable, setDisable] = useState<boolean>(true);
+
+  //snackbar related states
+  const [open, setOpen] = useState(false);
+  const [alertMsg, setMsg] = useState("");
+  const [alertType, setAlertType] = useState<AlertColor>("success");
+
+  const handleClose = (
+    event: Event | SyntheticEvent<Element>,
+    reason?: any
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   // count the total nominations
   useEffect(() => {
@@ -65,12 +84,28 @@ export default function CreatePoll() {
         .then((res) => {
           res.json().then((data) => {
             console.log(data);
+            if (data.success) {
+              setSubject("");
+              setNominationCounter(2);
+              setNominations([{ nomination: "" }, { nomination: "" }]);
+
+              setMsg("new poll creeted");
+              setAlertType("success");
+              setOpen(true);
+            } else {
+              setMsg("error occurred. success false");
+              setAlertType("error");
+              setOpen(true);
+            }
           });
         })
         .catch((err) => {
           console.log("failed to upload");
         });
     } else {
+      setMsg(error.details[0].message);
+      setAlertType("error");
+      setOpen(true);
       console.error("error:", error.message);
     }
   };
@@ -179,6 +214,15 @@ export default function CreatePoll() {
           </Grid>
         </Grid>
       </Box>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={alertType}
+          sx={{ width: "100%" }}
+        >
+          {alertMsg}
+        </Alert>
+      </Snackbar>
     </>
   );
 }
