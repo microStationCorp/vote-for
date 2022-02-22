@@ -15,10 +15,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useRouter } from "next/router";
 import { MouseEvent, useState } from "react";
 import { pages } from "utils/pages";
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { signIn, signOut, useSession } from "next-auth/react";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function CustomAppbar() {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -116,32 +117,56 @@ export default function CustomAppbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="sherlock" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: "top", horizontal: "right" }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign={"center"}>{setting}</Typography>
+          {session ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt={session?.user?.name || "none"}
+                    src={session?.user?.image || ""}
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign={"center"}>
+                    {" "}
+                    Signed in as {session?.user?.name?.toUpperCase()}
+                  </Typography>
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+                <MenuItem onClick={() => signOut()}>
+                  <Typography align={"center"} style={{ width: "100%" }}>
+                    Log Out
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Log In">
+                <IconButton
+                  onClick={() => signIn()}
+                  sx={{ p: 0 }}
+                  size="large"
+                  color="inherit"
+                >
+                  <LoginIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
