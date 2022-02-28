@@ -23,6 +23,7 @@ export default function CustomAppbar() {
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  // console.log(session);
 
   const gotoHomepage = () => {
     router.push("/");
