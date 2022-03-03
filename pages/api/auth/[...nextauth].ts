@@ -1,20 +1,20 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import GithubProvider from "next-auth/providers/github";
+// import GithubProvider from "next-auth/providers/github";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/utils/mongodb";
 
 export default NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_ID || "",
-    //   clientSecret: process.env.GOOGLE_SECRET || "",
-    // }),
-    GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID || "",
+      clientSecret: process.env.GOOGLE_SECRET || "",
     }),
+    // GithubProvider({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    // }),
   ],
   callbacks: {
     jwt: ({ token, user }) => {
@@ -35,6 +35,9 @@ export default NextAuth({
     secret: process.env.SECRET,
   },
   session: {
-    strategy: "jwt",
+    strategy: "database",
+  },
+  theme: {
+    colorScheme: "light",
   },
 });
